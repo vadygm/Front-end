@@ -1,0 +1,10 @@
+indicaciones mejorar la pagina 
+Tipo de letra: Plus Jakarta Sans https://fonts.google.com/selection/embed
+logito de banco: si es posible 
+imagen fondo: 
+Logo: agregar tanto en registro como en login
+agregar botton regresar en registro
+link de fotos: https://unsplash.com/es tamaño 660 x todo alto 
+conteiner en medio del espacio restante 
+
+

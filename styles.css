@@ -34,6 +34,7 @@ body {
 }
 
 .form-group label {
+    width: 100%;
     display: block;
     font-weight: bold;
     color: #666;
@@ -42,7 +43,7 @@ body {
 
 .form-group input {
     width: 100%;
-    padding: 15px;
+    padding: 12px 20px;
     border-radius: 10px;
     border: 1px solid #ddd;
     font-size: 16px;
@@ -74,8 +75,10 @@ button:hover {
 .forgot-password a {
     color: #337ab7;
     text-decoration: none;
+    margin-top: 8px;
 }
 
 .forgot-password a:hover {
     text-decoration: underline;
+    
 }
