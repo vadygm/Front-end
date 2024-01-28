@@ -5,12 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro y Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .form-container h2 {
+            text-align: left; /* Alinea el texto a la izquierda */
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="form-container" id="login-container">
-            <img src="log/bank-logo.svg" alt="Bank Logo" class="logo">
+            <img src="{{ url_for('static', filename='log/bank-logo.svg') }}" alt="Bank Logo" class="logo">
             <h2 class="plus-jakarta-sans-bold">Iniciar Sesión</h2>
             <form id="login-form">
                 <div class="form-group">
@@ -27,7 +32,7 @@
             </form>
         </div>
         <div class="form-container" id="register-container" style="display: none;">
-            <img src="log/bank-logo.svg" alt="Bank Logo" class="logo">
+            <img src="{{ url_for('static', filename='log/bank-logo.svg') }}" alt="Bank Logo" class="logo">
             <h2 class="plus-jakarta-sans-bold">Registro</h2>
             <form id="register-form">
                 <div class="form-group">
@@ -59,7 +64,7 @@
             </form>
         </div>
         <div class="image-container">
-            <img src="img/banco.webp" alt="Imagen del banco">
+            <img src="{{ url_for('static', filename='img/banco.webp') }}" alt="Imagen del banco">
         </div>
     </div>
     <script>
