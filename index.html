@@ -4,55 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro y Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <div class="form-container">
-            <h2>Registro</h2>
-            <form id="register-form">
-                <div class="form-group">
-                    <label for="register-firstname">Nombre</label>
-                    <input type="text" id="register-firstname" name="register-firstname" required>
-                </div>
-                <div class="form-group">
-                    <label for="register-lastname">Apellido</label>
-                    <input type="text" id="register-lastname" name="register-lastname" required>
-                </div>
-                <div class="form-group">
-                    <label for="register-email">Correo Electrónico</label>
-                    <input type="email" id="register-email" name="register-email" required>
-                </div>
-                <div class="form-group">
-                    <label for="register-id">C.I.</label>
-                    <input type="text" id="register-id" name="register-id" required>
-                </div>
-                <div class="form-group">
-                    <label for="register-phone">Teléfono</label>
-                    <input type="text" id="register-phone" name="register-phone" required>
-                </div>
-                <div class="form-group">
-                    <label for="register-password">Contraseña</label>
-                    <input type="password" id="register-password" name="register-password" required>
-                </div>
-                <button type="submit">Crear Cuenta</button>
-            </form>
-        </div>
-        <div class="form-container">
-            <h2>Iniciar Sesión</h2>
+        <div class="form-container" id="login-container">
+            <img src="log/bank-logo.svg" alt="Bank Logo" class="logo">
+            <h2 class="plus-jakarta-sans-bold">Iniciar Sesión</h2>
             <form id="login-form">
                 <div class="form-group">
-                    <label for="login-email">Correo Electrónico</label>
-                    <input type="email" id="login-email" name="login-email" required>
+                    <label for="login-email" class="plus-jakarta-sans-regular">Correo Electrónico</label>
+                    <input type="email" id="login-email" name="login-email" required class="plus-jakarta-sans-regular">
                 </div>
-                <div class="form-group",class="forgot-password">
-                    <label for="login-password">Contraseña</label>
-                    <input type="password" id="login-password" name="login-password" required>
-                    <a href="#">¿Olvidaste tu contraseña?</a>
+                <div class="form-group forgot-password">
+                    <label for="login-password" class="plus-jakarta-sans-regular">Contraseña</label>
+                    <input type="password" id="login-password" name="login-password" required class="plus-jakarta-sans-regular">
+                    <a href="#" class="plus-jakarta-sans-regular">¿Olvidaste tu contraseña?</a>
                 </div>
-                <button type="submit">Iniciar Sesión</button>
+                <button type="submit" class="plus-jakarta-sans-bold">Iniciar Sesión</button>
+                <button type="button" id="create-account-btn" class="plus-jakarta-sans-regular">Crear Cuenta</button>
             </form>
         </div>
+        <div class="form-container" id="register-container" style="display: none;">
+            <img src="log/bank-logo.svg" alt="Bank Logo" class="logo">
+            <h2 class="plus-jakarta-sans-bold">Registro</h2>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="register-firstname" class="plus-jakarta-sans-regular">Nombre</label>
+                    <input type="text" id="register-firstname" name="register-firstname" required class="plus-jakarta-sans-regular">
+                </div>
+                <div class="form-group">
+                    <label for="register-lastname" class="plus-jakarta-sans-regular">Apellido</label>
+                    <input type="text" id="register-lastname" name="register-lastname" required class="plus-jakarta-sans-regular">
+                </div>
+                <div class="form-group">
+                    <label for="register-email" class="plus-jakarta-sans-regular">Correo Electrónico</label>
+                    <input type="email" id="register-email" name="register-email" required class="plus-jakarta-sans-regular">
+                </div>
+                <div class="form-group">
+                    <label for="register-id" class="plus-jakarta-sans-regular">C.I.</label>
+                    <input type="text" id="register-id" name="register-id" required class="plus-jakarta-sans-regular">
+                </div>
+                <div class="form-group">
+                    <label for="register-phone" class="plus-jakarta-sans-regular">Teléfono</label>
+                    <input type="text" id="register-phone" name="register-phone" required class="plus-jakarta-sans-regular">
+                </div>
+                <div class="form-group">
+                    <label for="register-password" class="plus-jakarta-sans-regular">Contraseña</label>
+                    <input type="password" id="register-password" name="register-password" required class="plus-jakarta-sans-regular">
+                </div>
+                <button type="submit" class="plus-jakarta-sans-bold">Crear Cuenta</button>
+                <button type="button" id="cancel-register-btn" class="plus-jakarta-sans-regular">Cancelar</button>
+            </form>
+        </div>
+        <div class="image-container">
+            <img src="img/banco.webp" alt="Imagen del banco">
+        </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const loginContainer = document.getElementById("login-container");
+            const registerContainer = document.getElementById("register-container");
+            const createAccountBtn = document.getElementById("create-account-btn");
+            const cancelRegisterBtn = document.getElementById("cancel-register-btn");
+    
+            createAccountBtn.addEventListener("click", function() {
+                loginContainer.style.display = "none";
+                registerContainer.style.display = "block"; 
+            });
+    
+            cancelRegisterBtn.addEventListener("click", function() {
+                loginContainer.style.display = "flex";
+                registerContainer.style.display = "none";
+            });
+        });
+    </script> 
 </body>
 </html>
