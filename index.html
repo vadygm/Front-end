@@ -69,7 +69,8 @@
                     <input type="password" id="register-password" name="register-password" required
                         class="plus-jakarta-sans-regular">
                 </div>
-                <button type="button" id="register-submit-btn" onclick="registrarUsuario()" class="plus-jakarta-sans-bold">Crear Cuenta</button>
+                <button type="button" id="register-submit-btn" onclick="registrarUsuario()"
+                    class="plus-jakarta-sans-bold">Crear Cuenta</button>
                 <button type="button" id="cancel-register-btn" class="plus-jakarta-sans-regular">Cancelar</button>
             </form>
         </div>
@@ -120,10 +121,16 @@
                     }),
                 });
 
-                const data = await response.json();
-                document.getElementById("resultado").innerText = JSON.stringify(data, null, 2);
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById("resultado").innerText = JSON.stringify(data, null, 2);
+                } else {
+                    const errorData = await response.json();
+                    throw new Error(errorData.detail);
+                }
             } catch (error) {
-                console.error('Error al realizar la solicitud:', error);
+                console.error('Error al realizar la solicitud:', error.message);
+                document.getElementById("resultado").innerText = `Error: ${error.message}`;
             }
         }
 
@@ -132,23 +139,33 @@
             const correo = document.getElementById('login-email').value;
             const contraseña = document.getElementById('login-password').value;
 
-            const response = await fetch('http://127.0.0.1:8000/usuarios/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    "nombre": "",
-                    "apellido": "",
-                    "correo": correo,
-                    "cedula": "",
-                    "celular": "",
-                    "contraseña": contraseña
-                }),
-            });
+            try {
+                const response = await fetch('http://127.0.0.1:8000/usuarios/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        "nombre": "",
+                        "apellido": "",
+                        "correo": correo,
+                        "cedula": "",
+                        "celular": "",
+                        "contraseña": contraseña
+                    }),
+                });
 
-            const result = await response.json();
-            document.getElementById('result').innerText = JSON.stringify(result, null, 2);
+                if (response.ok) {
+                    // Redirigir a la página cuenta.html
+                    window.location.href = 'cuenta.html';
+                } else {
+                    const result = await response.json();
+                    document.getElementById('result').innerText = JSON.stringify(result, null, 2);
+                }
+            } catch (error) {
+                console.error('Error al realizar la solicitud:', error.message);
+                document.getElementById('result').innerText = `Error: ${error.message}`;
+            }
         }
     </script>
 </body>
