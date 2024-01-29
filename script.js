@@ -201,3 +201,45 @@ depositForm.addEventListener('submit', function (event) {
     realizarDeposito(); // Llamar a la función para realizar el depósito
     
 });
+
+// Función para realizar un retiro
+async function realizarRetiro() {
+    // Obtener los valores de los campos del formulario
+    const numeroCuentaRetiro = document.getElementById('account-number-withdraw').value;
+    const montoRetiro = parseFloat(document.getElementById('withdrawal-amount').value);
+
+    try {
+        // Realizar la solicitud POST al servicio FastAPI para realizar el retiro
+        const response = await fetch(`http://localhost:8000/cuentas/${numeroCuentaRetiro}/retiro`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                monto: montoRetiro,
+            }),
+        });
+
+        if (response.ok) {
+            // Si la respuesta es exitosa, obtener el mensaje
+            const data = await response.json();
+            console.log(data.message);
+            window.location.href = window.location.href;
+        } else {
+            // Manejar el caso en el que la respuesta no sea exitosa
+            const errorData = await response.json();
+            console.error('Error al realizar el retiro:', errorData.detail);
+        }
+    } catch (error) {
+        console.error('Error al realizar la solicitud:', error.message);
+    }
+}
+
+// Obtener el formulario de retiro
+const withdrawForm = document.getElementById('withdraw-form');
+
+// Agregar un event listener para el submit del formulario de retiro
+withdrawForm.addEventListener('submit', function (event) {
+    event.preventDefault(); // Evitar el envío tradicional del formulario
+    realizarRetiro(); // Llamar a la función para realizar el retiro
+});
