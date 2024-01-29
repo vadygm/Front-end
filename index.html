@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro y Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
     <style>
         .form-container h2 {
-            text-align: left; /* Alinea el texto a la izquierda */
+            text-align: left;
+            /* Alinea el texto a la izquierda */
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="form-container" id="login-container">
-            <img src="{{ url_for('static', filename='log/bank-logo.svg') }}" alt="Bank Logo" class="logo">
+            <img src="log/bank-logo.svg" alt="Bank Logo" class="logo">
             <h2 class="plus-jakarta-sans-bold">Iniciar Sesión</h2>
             <form id="login-form">
                 <div class="form-group">
@@ -24,66 +28,129 @@
                 </div>
                 <div class="form-group forgot-password">
                     <label for="login-password" class="plus-jakarta-sans-regular">Contraseña</label>
-                    <input type="password" id="login-password" name="login-password" required class="plus-jakarta-sans-regular">
+                    <input type="password" id="login-password" name="login-password" required
+                        class="plus-jakarta-sans-regular">
                     <a href="#" class="plus-jakarta-sans-regular">¿Olvidaste tu contraseña?</a>
                 </div>
-                <button type="submit" class="plus-jakarta-sans-bold">Iniciar Sesión</button>
+                <button type="button" onclick="login()" class="plus-jakarta-sans-bold">Iniciar Sesión</button>
                 <button type="button" id="create-account-btn" class="plus-jakarta-sans-regular">Crear Cuenta</button>
             </form>
         </div>
         <div class="form-container" id="register-container" style="display: none;">
-            <img src="{{ url_for('static', filename='log/bank-logo.svg') }}" alt="Bank Logo" class="logo">
+            <img src="log/bank-logo.svg" alt="Bank Logo" class="logo">
             <h2 class="plus-jakarta-sans-bold">Registro</h2>
             <form id="register-form">
                 <div class="form-group">
                     <label for="register-firstname" class="plus-jakarta-sans-regular">Nombre</label>
-                    <input type="text" id="register-firstname" name="register-firstname" required class="plus-jakarta-sans-regular">
+                    <input type="text" id="register-firstname" name="register-firstname" required
+                        class="plus-jakarta-sans-regular">
                 </div>
                 <div class="form-group">
                     <label for="register-lastname" class="plus-jakarta-sans-regular">Apellido</label>
-                    <input type="text" id="register-lastname" name="register-lastname" required class="plus-jakarta-sans-regular">
+                    <input type="text" id="register-lastname" name="register-lastname" required
+                        class="plus-jakarta-sans-regular">
                 </div>
                 <div class="form-group">
                     <label for="register-email" class="plus-jakarta-sans-regular">Correo Electrónico</label>
-                    <input type="email" id="register-email" name="register-email" required class="plus-jakarta-sans-regular">
+                    <input type="email" id="register-email" name="register-email" required
+                        class="plus-jakarta-sans-regular">
                 </div>
                 <div class="form-group">
-                    <label for="register-id" class="plus-jakarta-sans-regular">C.I.</label>
+                    <label for="register-id" class="plus-jakarta-sans-regular">C.I. (10 Digitos)</label>
                     <input type="text" id="register-id" name="register-id" required class="plus-jakarta-sans-regular">
                 </div>
                 <div class="form-group">
-                    <label for="register-phone" class="plus-jakarta-sans-regular">Teléfono</label>
-                    <input type="text" id="register-phone" name="register-phone" required class="plus-jakarta-sans-regular">
+                    <label for="register-phone" class="plus-jakarta-sans-regular">Teléfono (10 Digitos)</label>
+                    <input type="text" id="register-phone" name="register-phone" required
+                        class="plus-jakarta-sans-regular">
                 </div>
                 <div class="form-group">
                     <label for="register-password" class="plus-jakarta-sans-regular">Contraseña</label>
-                    <input type="password" id="register-password" name="register-password" required class="plus-jakarta-sans-regular">
+                    <input type="password" id="register-password" name="register-password" required
+                        class="plus-jakarta-sans-regular">
                 </div>
-                <button type="submit" class="plus-jakarta-sans-bold">Crear Cuenta</button>
+                <button type="button" id="register-submit-btn" onclick="registrarUsuario()" class="plus-jakarta-sans-bold">Crear Cuenta</button>
                 <button type="button" id="cancel-register-btn" class="plus-jakarta-sans-regular">Cancelar</button>
             </form>
         </div>
         <div class="image-container">
-            <img src="{{ url_for('static', filename='img/banco.webp') }}" alt="Imagen del banco">
+            <img src="img/banco.webp" alt="Imagen del banco">
         </div>
+        <div id="result"></div>
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const loginContainer = document.getElementById("login-container");
             const registerContainer = document.getElementById("register-container");
             const createAccountBtn = document.getElementById("create-account-btn");
             const cancelRegisterBtn = document.getElementById("cancel-register-btn");
-    
-            createAccountBtn.addEventListener("click", function() {
+
+            createAccountBtn.addEventListener("click", function () {
                 loginContainer.style.display = "none";
-                registerContainer.style.display = "block"; 
+                registerContainer.style.display = "block";
             });
-    
-            cancelRegisterBtn.addEventListener("click", function() {
+
+            cancelRegisterBtn.addEventListener("click", function () {
                 loginContainer.style.display = "flex";
                 registerContainer.style.display = "none";
             });
         });
-    </script> 
+
+        async function registrarUsuario() {
+            const nombre = document.getElementById('register-firstname').value;
+            const apellido = document.getElementById('register-lastname').value;
+            const correo = document.getElementById('register-email').value;
+            const cedula = document.getElementById('register-id').value;
+            const celular = document.getElementById('register-phone').value;
+            const contraseña = document.getElementById('register-password').value;
+
+            try {
+                const response = await fetch('http://localhost:8000/usuarios', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        "nombre": nombre,
+                        "apellido": apellido,
+                        "correo": correo,
+                        "cedula": cedula,
+                        "celular": celular,
+                        "contraseña": contraseña
+                    }),
+                });
+
+                const data = await response.json();
+                document.getElementById("resultado").innerText = JSON.stringify(data, null, 2);
+            } catch (error) {
+                console.error('Error al realizar la solicitud:', error);
+            }
+        }
+
+
+        async function login() {
+            const correo = document.getElementById('login-email').value;
+            const contraseña = document.getElementById('login-password').value;
+
+            const response = await fetch('http://127.0.0.1:8000/usuarios/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "nombre": "",
+                    "apellido": "",
+                    "correo": correo,
+                    "cedula": "",
+                    "celular": "",
+                    "contraseña": contraseña
+                }),
+            });
+
+            const result = await response.json();
+            document.getElementById('result').innerText = JSON.stringify(result, null, 2);
+        }
+    </script>
 </body>
+
 </html>
