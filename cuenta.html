@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operaciones Bancarias</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .form-container h2 {
+            text-align: left; /* Alinea el texto a la izquierda */
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            width: 100%;
+            display: block;
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            color: #444;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #337ab7;
+            border: none;
+            color: #fff;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #286090;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container" id="operation-container">
+            <h2 class="plus-jakarta-sans-bold">Operaciones Bancarias</h2>
+
+            <!-- Botones para mostrar los formularios -->
+            <button id="show-deposit-form" class="plus-jakarta-sans-regular">Realizar Depósito</button>
+            <button id="show-withdraw-form" class="plus-jakarta-sans-regular">Realizar Retiro</button>
+            <button id="show-credit-request-form" class="plus-jakarta-sans-regular">Solicitar Crédito</button>
+
+            <!-- Formulario de Depósito -->
+            <form id="deposit-form" style="display: none;" method="post" action="/process_deposit">
+                <div class="form-group">
+                    <label for="account-number" class="plus-jakarta-sans-regular">Número de Cuenta</label>
+                    <input type="text" id="account-number" name="account-number" required class="plus-jakarta-sans-regular">
+                </div>
+                <div class="form-group">
+                    <label for="deposit-amount" class="plus-jakarta-sans-regular">Monto de Depósito</label>
+                    <input type="number" id="deposit-amount" name="deposit-amount" required class="plus-jakarta-sans-regular">
+                </div>
+                <button type="submit" class="plus-jakarta-sans-bold">Realizar Depósito</button>
+            </form>
+
+            <!-- Formulario de Retiro -->
+            <form id="withdraw-form" style="display: none;" method="post" action="/process_withdrawal">
+                <div class="form-group">
+                    <label for="account-number-withdraw" class="plus-jakarta-sans-regular">Número de Cuenta</label>
+                    <input type="text" id="account-number-withdraw" name="account-number-withdraw" required class="plus-jakarta-sans-regular">
+                </div>
+                <div class="form-group">
+                    <label for="withdrawal-amount" class="plus-jakarta-sans-regular">Monto de Retiro</label>
+                    <input type="number" id="withdrawal-amount" name="withdrawal-amount" required class="plus-jakarta-sans-regular">
+                </div>
+                <button type="submit" class="plus-jakarta-sans-bold">Realizar Retiro</button>
+            </form>
+
+            <!-- Formulario de Solicitud de Crédito -->
+            <form id="credit-request-form" style="display: none;" method="post" action="/request_credit">
+                <div class="form-group">
+                    <label for="account-number-credit" class="plus-jakarta-sans-regular">Número de Cuenta</label>
+                    <input type="text" id="account-number-credit" name="account-number-credit" required class="plus-jakarta-sans-regular">
+                </div>
+                <div class="form-group">
+                    <label for="credit-amount" class="plus-jakarta-sans-regular">Monto Solicitado</label>
+                    <input type="number" id="credit-amount" name="credit-amount" required class="plus-jakarta-sans-regular">
+                </div>
+                <div class="form-group">
+                    <label for="credit-term" class="plus-jakarta-sans-regular">Plazo en Meses</label>
+                    <input type="number" id="credit-term" name="credit-term" required class="plus-jakarta-sans-regular">
+                </div>
+                <div class="form-group">
+                    <label for="interest-rate" class="plus-jakarta-sans-regular">Tasa de Interés</label>
+                    <input type="number" id="interest-rate" name="interest-rate" required class="plus-jakarta-sans-regular">
+                </div>
+                <!-- Puedes agregar más campos según sea necesario para la solicitud de crédito -->
+                <button type="submit" class="plus-jakarta-sans-bold">Solicitar Crédito</button>
+            </form>
+        </div>
+
+        <div class="image-container">
+            <img src="{{ url_for('static', filename='img/banco.webp') }}" alt="Imagen del banco">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const depositForm = document.getElementById("deposit-form");
+            const withdrawForm = document.getElementById("withdraw-form");
+            const creditRequestForm = document.getElementById("credit-request-form");
+
+            // Mostrar el formulario de depósito
+            document.getElementById("show-deposit-form").addEventListener("click", function() {
+                depositForm.style.display = "block";
+                withdrawForm.style.display = "none";
+                creditRequestForm.style.display = "none";
+            });
+
+            // Mostrar el formulario de retiro
+            document.getElementById("show-withdraw-form").addEventListener("click", function() {
+                depositForm.style.display = "none";
+                withdrawForm.style.display = "block";
+                creditRequestForm.style.display = "none";
+            });
+
+            // Mostrar el formulario de solicitud de crédito
+            document.getElementById("show-credit-request-form").addEventListener("click", function() {
+                depositForm.style.display = "none";
+                withdrawForm.style.display = "none";
+                creditRequestForm.style.display = "block";
+            });
+        });
+    </script>
+</body>
+</html>
