@@ -1,5 +1,5 @@
 let userId, userName, userLastName, userEmail, userCedula, userCelular, num_cuenta, saldo_cuenta;
-
+// Obtener los eventos del formulario de registro
 document.addEventListener("DOMContentLoaded", function() {
     const loginContainer = document.getElementById("login-container");
     const registerContainer = document.getElementById("register-container");
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 const usuarioString = localStorage.getItem('usuario');
-
+// Verifica si la información del usuario está almacenada en localStorage
 if (usuarioString) {
     const usuario = JSON.parse(usuarioString);
     // Haz algo con la información del usuario, por ejemplo, actualiza el DOM con sus detalles
@@ -81,7 +81,7 @@ async function obtenerCuentaAhorro() {
         console.error('Error al realizar la solicitud:', error.message);
     }
 }
-
+// Función para registrar un usuario
 async function registrarUsuario() {
     const nombre = document.getElementById('register-firstname').value;
     const apellido = document.getElementById('register-lastname').value;
@@ -119,7 +119,7 @@ async function registrarUsuario() {
     }
 }
 
-
+// Obtener el formulario de registro
 async function login() {
     const correo = document.getElementById('login-email').value;
     const contraseña = document.getElementById('login-password').value;
@@ -224,7 +224,7 @@ async function realizarRetiro() {
             // Si la respuesta es exitosa, obtener el mensaje
             const data = await response.json();
             console.log(data.message);
-            window.location.href = window.location.href;
+            window.location.href = window.location.href;// Actualizar la página
         } else {
             // Manejar el caso en el que la respuesta no sea exitosa
             const errorData = await response.json();

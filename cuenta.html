@@ -60,8 +60,7 @@
             <!-- Botones para mostrar los formularios -->
             <button id="show-deposit-form" class="plus-jakarta-sans-regular">Realizar Depósito</button>
             <button id="show-withdraw-form" class="plus-jakarta-sans-regular">Realizar Retiro</button>
-            <button id="show-credit-request-form" class="plus-jakarta-sans-regular">Solicitar Crédito</button>
-
+            
             <!-- Formulario de Depósito -->
             <form id="deposit-form" style="display: none;" method="post" action="/process_deposit">
                 <div class="form-group">
@@ -86,28 +85,6 @@
                     <input type="number" id="withdrawal-amount" name="withdrawal-amount" required class="plus-jakarta-sans-regular">
                 </div>
                 <button type="submit" class="plus-jakarta-sans-bold">Realizar Retiro</button>
-            </form>
-
-            <!-- Formulario de Solicitud de Crédito -->
-            <form id="credit-request-form" style="display: none;" method="post" action="/request_credit">
-                <div class="form-group">
-                    <label for="account-number-credit" class="plus-jakarta-sans-regular">Número de Cuenta</label>
-                    <input type="text" id="account-number-credit" name="account-number-credit" required class="plus-jakarta-sans-regular">
-                </div>
-                <div class="form-group">
-                    <label for="credit-amount" class="plus-jakarta-sans-regular">Monto Solicitado</label>
-                    <input type="number" id="credit-amount" name="credit-amount" required class="plus-jakarta-sans-regular">
-                </div>
-                <div class="form-group">
-                    <label for="credit-term" class="plus-jakarta-sans-regular">Plazo en Meses</label>
-                    <input type="number" id="credit-term" name="credit-term" required class="plus-jakarta-sans-regular">
-                </div>
-                <div class="form-group">
-                    <label for="interest-rate" class="plus-jakarta-sans-regular">Tasa de Interés</label>
-                    <input type="number" id="interest-rate" name="interest-rate" required class="plus-jakarta-sans-regular">
-                </div>
-                <!-- Puedes agregar más campos según sea necesario para la solicitud de crédito -->
-                <button type="submit" class="plus-jakarta-sans-bold">Solicitar Crédito</button>
             </form>
         </div>
 
