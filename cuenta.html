@@ -111,11 +111,23 @@
             </form>
         </div>
 
+        <div >
+            <h2>Información de la Cuenta</h2>
+            <ul>
+                <li><strong>Nombre:</strong> <span id="user-name"></span></li>
+                <li><strong>Apellido:</strong> <span id="user-lastname"></span></li>
+                <li><strong>Correo Electrónico:</strong> <span id="user-email"></span></li>
+                <li><strong>Cédula:</strong> <span id="user-cedula"></span></li>
+                <li><strong>Celular:</strong> <span id="user-celular"></span></li>
+                <li><strong>Número de Cuenta:</strong> <span id="num-cuenta"></span></li>
+                <li><strong>Saldo:</strong> <span id="saldo-cuenta"></span></li>
+            </ul>
+        </div>
+            
         <div class="image-container">
             <img src="img/banco.webp" alt="Imagen del banco">
         </div>
     </div>
-
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const depositForm = document.getElementById("deposit-form");
@@ -144,5 +156,6 @@
             });
         });
     </script>
+    <script src="script.js"></script>
 </body>
 </html>
