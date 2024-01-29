@@ -156,3 +156,48 @@ async function login() {
         document.getElementById('result').innerText = `Error: ${error.message}`;
     }
 }
+
+// Función para realizar un depósito
+async function realizarDeposito() {
+    // Obtener los valores de los campos del formulario
+    const numeroCuenta = document.getElementById('account-number').value;
+    const montoDeposito = parseFloat(document.getElementById('deposit-amount').value);
+
+    try {
+        // Realizar la solicitud POST al servicio FastAPI
+        const response = await fetch(`http://localhost:8000/cuentas/${numeroCuenta}/deposito`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                monto: montoDeposito,
+            }),
+        });
+
+        if (response.ok) {
+            // Si la respuesta es exitosa, obtener el mensaje
+            const data = await response.json();
+            console.log(data.message);
+            window.location.href = window.location.href;
+
+            // Aquí puedes realizar acciones adicionales después del depósito
+        } else {
+            // Manejar el caso en el que la respuesta no sea exitosa
+            const errorData = await response.json();
+            console.error('Error al realizar el depósito:', errorData.detail);
+        }
+    } catch (error) {
+        console.error('Error al realizar la solicitud:', error.message);
+    }
+}
+
+// Obtener el formulario de depósito
+const depositForm = document.getElementById('deposit-form');
+
+// Agregar un event listener para el submit del formulario
+depositForm.addEventListener('submit', function (event) {
+    event.preventDefault(); // Evitar el envío tradicional del formulario
+    realizarDeposito(); // Llamar a la función para realizar el depósito
+    
+});
