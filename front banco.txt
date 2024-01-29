@@ -8,4 +8,4 @@ link de fotos: https://unsplash.com/es tamaño 660 x todo alto
 conteiner en medio del espacio restante 
 
 
-Iniciar el servidor con python -m http.server 8001
+Para iniciar el servidor html con python, ejecutar: python -m http.server 8001
