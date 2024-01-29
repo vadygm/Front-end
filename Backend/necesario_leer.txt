@@ -53,4 +53,4 @@ CREATE TABLE IF NOT EXISTS amortizacion_creditos (
 );
 
 PARA EJECUTAR EL CODIGO SE REQUIERE DE EJECUTAR EN EL IDE:
-python controlador.py
+python main.py o uvicorn main:app --reload

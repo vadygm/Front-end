@@ -12,11 +12,22 @@ from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 from repositorio import Repositorio
 from servicio import Servicio
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
 
 repositorio = Repositorio()
 servicio = Servicio(repositorio)
+
+origins = ["http://localhost", "http://localhost:8000", "http://localhost:8001","http://localhost:3000", "http://localhost:5500"]  # Agrega aquí el dominio de tu frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class UsuarioIn(BaseModel):
     nombre: str
@@ -24,6 +35,7 @@ class UsuarioIn(BaseModel):
     correo: str
     cedula: str
     celular: str
+    contraseña: str
 
 class CreditoIn(BaseModel):
     monto: float
@@ -32,6 +44,10 @@ class CreditoIn(BaseModel):
 
 class TransaccionIn(BaseModel):
     monto: float
+
+@app.get('/')
+def root():
+    return 'FastAPI esta en funcionamiento'
 
 @app.post("/usuarios", response_model=dict)
 async def registrar_usuario(usuario: UsuarioIn):
@@ -44,6 +60,25 @@ async def registrar_usuario(usuario: UsuarioIn):
     """
     usuario_id = servicio.registrar_usuario(usuario.nombre, usuario.apellido, usuario.correo, usuario.cedula, usuario.celular)
     return {"usuario_id": usuario_id}
+
+@app.post("/usuarios/login", response_model=dict)
+async def login_usuario(usuario_info: UsuarioIn):
+    """
+    Obtiene la información de un usuario por correo y contraseña.
+
+    Examples:
+        >>> login_usuario(UsuarioInfo(correo="correo@example.com", contraseña="contraseña123"))
+        {'message': 'Inicio de sesión exitoso', 'usuario': {'id': 1, 'nombre': 'John', 'apellido': 'Doe', 'correo': 'correo@example.com', 'cedula': '1234567890', 'celular': '987654321'}}
+    """
+    try:
+        usuario = servicio.obtener_usuario_por_correo_y_contraseña(usuario_info.correo, usuario_info.contraseña)
+        if usuario:
+            return {"message": "Inicio de sesión exitoso", "usuario": usuario}
+        else:
+            raise HTTPException(status_code=401, detail="Credenciales inválidas")
+    except Exception as e:
+        print(f"Error en la función login_usuario: {e}")
+        raise HTTPException(status_code=500, detail="Error interno del servidor")
 
 @app.get("/cuenta_ahorro/{usuario_id}", response_model=dict)
 async def obtener_cuenta_ahorro(usuario_id: int):

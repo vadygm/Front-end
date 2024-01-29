@@ -18,6 +18,39 @@ class Servicio:
         else:
             return None
 
+    def obtener_usuario_por_correo_y_contraseña(self, correo, contraseña):
+        """
+        Obtiene la información de un usuario por correo y contraseña.
+
+        Args:
+            correo (str): Correo del usuario.
+            contraseña (str): Contraseña del usuario.
+
+        Returns:
+            dict or None: Un diccionario con la información del usuario o None si no se encuentra.
+
+        Examples:
+            >>> servicio = Servicio(Repositorio())
+            >>> servicio.obtener_usuario_por_correo_y_contraseña("correo@example.com", "contraseña123")
+            {'id': 1, 'nombre': 'John', 'apellido': 'Doe', 'correo': 'correo@example.com', 'cedula': '1234567890', 'celular': '987654321'}
+        """
+        try:
+            usuario = self.repositorio.obtener_usuario_por_correo_y_contraseña(correo, contraseña)
+            if usuario:
+                return {
+                    "id": usuario[0],
+                    "nombre": usuario[1],
+                    "apellido": usuario[2],
+                    "correo": usuario[3],
+                    "cedula": usuario[4],
+                    "celular": usuario[5]
+                }
+            else:
+                return None
+        except Exception as e:
+            print(f"Error al obtener el usuario: {e}")
+            raise
+
     def registrar_usuario(self, nombre, apellido, correo, cedula, celular):
         """
         Registra a un nuevo usuario.

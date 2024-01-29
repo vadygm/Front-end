@@ -24,6 +24,16 @@ class Repositorio:
         cuenta_ahorro = self.cursor.fetchone()
         return cuenta_ahorro
     
+    def obtener_usuario_por_correo_y_contraseña(self, correo, contraseña):
+        obtener_usuario_query = """
+        SELECT id, nombre, apellido, correo, cedula, celular
+        FROM usuarios
+        WHERE correo = %s AND contraseña = %s;
+        """
+        self.cursor.execute(obtener_usuario_query, (correo, contraseña))
+        usuario = self.cursor.fetchone()
+        return usuario
+    
     def agregar_usuario(self, nombre, apellido, correo, cedula, celular):
         insertar_usuario_query = """
         INSERT INTO usuarios (nombre, apellido, correo, cedula, celular)
