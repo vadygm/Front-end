@@ -20,13 +20,14 @@ class Usuario:
         >>> usuario.correo
         'john@example.com'
     """
-    def __init__(self, id, nombre, apellido, correo, cedula, celular):
+    def __init__(self, id, nombre, apellido, correo, cedula, celular, contraseña):
         self.id = id
         self.nombre = nombre
         self.apellido = apellido
         self.correo = correo
         self.cedula = cedula
         self.celular = celular
+        self.contraseña = contraseña
 
 class CuentaAhorros:
     """

@@ -34,15 +34,37 @@ class Repositorio:
         usuario = self.cursor.fetchone()
         return usuario
     
-    def agregar_usuario(self, nombre, apellido, correo, cedula, celular):
-        insertar_usuario_query = """
-        INSERT INTO usuarios (nombre, apellido, correo, cedula, celular)
-        VALUES (%s, %s, %s, %s, %s) RETURNING id;
+    def agregar_usuario(self, nombre, apellido, correo, cedula, celular, contraseña):
         """
-        self.cursor.execute(insertar_usuario_query, (nombre, apellido, correo, cedula, celular))
-        usuario_id = self.cursor.fetchone()[0]
-        self.conexion.commit()
-        return usuario_id
+        Agrega un nuevo usuario a la base de datos.
+
+        Args:
+            nombre (str): Nombre del usuario.
+            apellido (str): Apellido del usuario.
+            correo (str): Correo electrónico del usuario.
+            cedula (str): Número de cédula del usuario.
+            celular (str): Número de celular del usuario.
+            contraseña (str): Contraseña del usuario.
+
+        Returns:
+            int: ID del usuario recién creado.
+
+        Examples:
+            >>> agregar_usuario("John", "Doe", "john@example.com", "1234567890", "987654321", "contraseña123")
+            1
+        """
+        try:
+            insertar_usuario_query = """
+            INSERT INTO usuarios (nombre, apellido, correo, cedula, celular, contraseña)
+            VALUES (%s, %s, %s, %s, %s, %s) RETURNING id;
+            """
+            self.cursor.execute(insertar_usuario_query, (nombre, apellido, correo, cedula, celular, contraseña))
+            usuario_id = self.cursor.fetchone()[0]
+            self.conexion.commit()
+            return usuario_id
+        except Exception as e:
+            print(f"Error al agregar usuario: {e}")
+            raise
 
     def crear_cuenta_ahorros(self, usuario_id, saldo_inicial=0):
         numero_cuenta = ''.join([str(random.randint(0, 9)) for _ in range(10)])

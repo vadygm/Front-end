@@ -3,57 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Usuario</title>
+    <title>Lista de Usuarios</title>
 </head>
 <body>
-
-    <h1>Registro de Usuario</h1>
-
-    <form id="registroForm">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
-
-        <label for="apellido">Apellido:</label>
-        <input type="text" id="apellido" name="apellido" required>
-
-        <label for="correo">Correo electrónico:</label>
-        <input type="email" id="correo" name="correo" required>
-
-        <label for="cedula">Cédula:</label>
-        <input type="text" id="cedula" name="cedula" required>
-
-        <label for="celular">Celular:</label>
-        <input type="text" id="celular" name="celular" required>
-
-        <label for="contraseña">Contraseña:</label>
-        <input type="password" id="contraseña" name="contraseña" required>
-
-        <button type="button" onclick="registrarUsuario()">Registrar</button>
-    </form>
-
-    <div id="resultado"></div>
+    <h1>Lista de Usuarios: </h1>
+    <ul id="userList"></ul>
 
     <script>
-        async function registrarUsuario() {
-            const form = document.getElementById("registroForm");
-            const formData = new FormData(form);
-            
+        // Hacer la solicitud a la API y mostrar los usuarios en la página
+        async function obtenerUsuarios() {
             try {
-                const response = await fetch('http://localhost:8000/usuarios', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(Object.fromEntries(formData)),
-                });
-
+                const response = await fetch('http://localhost:8000/usuarios');
                 const data = await response.json();
-                document.getElementById("resultado").innerText = JSON.stringify(data, null, 2);
+
+                const userList = document.getElementById('userList');
+                userList.innerHTML = '';
+
+                data.usuarios.forEach(usuario => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${usuario[1]} ${usuario[2]} - Correo: ${usuario[3]}, Cédula: ${usuario[4]}, Celular: ${usuario[5]}`;
+                    userList.appendChild(listItem);
+                });
             } catch (error) {
-                console.error('Error al realizar la solicitud:', error);
+                console.error('Error al obtener usuarios:', error);
             }
         }
-    </script>
 
+        // Llamar a la función para obtener usuarios al cargar la página
+        window.onload = obtenerUsuarios;
+    </script>
 </body>
 </html>

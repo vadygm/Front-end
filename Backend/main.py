@@ -58,7 +58,7 @@ async def registrar_usuario(usuario: UsuarioIn):
         >>> registrar_usuario(UsuarioIn(nombre="John", apellido="Doe", correo="john@example.com", cedula="1234567890", celular="987654321"))
         {'usuario_id': 1}
     """
-    usuario_id = servicio.registrar_usuario(usuario.nombre, usuario.apellido, usuario.correo, usuario.cedula, usuario.celular)
+    usuario_id = servicio.registrar_usuario(usuario.nombre, usuario.apellido, usuario.correo, usuario.cedula, usuario.celular, usuario.contraseña)
     return {"usuario_id": usuario_id}
 
 @app.post("/usuarios/login", response_model=dict)

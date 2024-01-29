@@ -51,7 +51,7 @@ class Servicio:
             print(f"Error al obtener el usuario: {e}")
             raise
 
-    def registrar_usuario(self, nombre, apellido, correo, cedula, celular):
+    def registrar_usuario(self, nombre, apellido, correo, cedula, celular, contraseña):
         """
         Registra a un nuevo usuario.
 
@@ -84,7 +84,7 @@ class Servicio:
             print("El número de celular debe contener 10 dígitos numéricos")
             return None
 
-        usuario_id = self.repositorio.agregar_usuario(nombre, apellido, correo, cedula, celular)
+        usuario_id = self.repositorio.agregar_usuario(nombre, apellido, correo, cedula, celular, contraseña)
 
         if usuario_id:
             print(f"Nuevo usuario agregado con ID: {usuario_id}")
