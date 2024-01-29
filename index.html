@@ -85,10 +85,16 @@
             const registerContainer = document.getElementById("register-container");
             const createAccountBtn = document.getElementById("create-account-btn");
             const cancelRegisterBtn = document.getElementById("cancel-register-btn");
+            const registerAccountBtn = document.getElementById("register-submit-btn");
 
             createAccountBtn.addEventListener("click", function () {
                 loginContainer.style.display = "none";
                 registerContainer.style.display = "block";
+            });
+
+            registerAccountBtn.addEventListener("click", function () {
+                loginContainer.style.display = "flex";
+                registerContainer.style.display = "none";
             });
 
             cancelRegisterBtn.addEventListener("click", function () {
@@ -104,7 +110,7 @@
             const cedula = document.getElementById('register-id').value;
             const celular = document.getElementById('register-phone').value;
             const contraseña = document.getElementById('register-password').value;
-
+  
             try {
                 const response = await fetch('http://localhost:8000/usuarios', {
                     method: 'POST',
